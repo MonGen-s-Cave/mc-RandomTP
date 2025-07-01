@@ -1,0 +1,45 @@
+debug: false
+
+teleport:
+  max-tries: 16
+  # If player use /rtp command without given world
+  # this world going to be used.
+  default-world: world
+
+  delay:
+    enabled: true
+    seconds: 5
+    cancel-on-move: true
+    notify:
+      type: "actionbar" # message, title, actionbar, none
+      message: "&eTeleporting in %s seconds..."
+      subtitle: "&cDon't move" # If type is title
+    sound:
+      enabled: true
+      name: "BLOCK_NOTE_BLOCK_PLING"
+      pitch: 1.0
+      volume: 1.0
+
+  success:
+    notify:
+      type: "actionbar" # message, title, actionbar, none
+      message: "&aYou have been teleported!"
+      subtitle: "&eGood Luck!" # If type is title
+    sound:
+      enabled: true
+      name: "BLOCK_NOTE_BLOCK_PLING"
+      pitch: 1.0
+      volume: 1.0
+    particle: "CLOUD" # Leave "" if you want to disable the particles
+
+worlds:
+  world:
+    radius: 1000
+    min-y: 60
+    max-y: 256
+  world_nether:
+    radius: 1000
+    min-y: 30
+    max-y: 120
+
+version: '1'

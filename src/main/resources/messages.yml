@@ -1,0 +1,21 @@
+prefix: "&#93B751[RandomTP]"
+
+messages:
+  no-permission: "%prefix% &cYou don't have permission to use this command."
+  missing-argument: "%prefix% &cCorrect usage: %usage%"
+  not-player: "%prefix% &cOnly a player can execute this command!"
+
+  rtp-command:
+    world-not-found: "%prefix% &cThe world %world% is not found.."
+    already-teleporting: "%prefix% &cYou are already being teleported."
+    failed: "%prefix% &eWe have not found a safe place for you, please try again!"
+    cancelled-by-move: "%prefix% &cTeleportation cancelled due to movement."
+
+  admin:
+    reload-command:
+      success: "%prefix% &aThe plugin files has been reloaded!"
+    debug-command:
+      enabled: "%prefix% &aDebug-mode has been enabled. (Console-only)"
+      disabled: "%prefix% &cDebug-mode has been disabled."
+
+version: '1'
