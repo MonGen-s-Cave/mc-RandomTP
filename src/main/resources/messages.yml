@@ -10,6 +10,7 @@ messages:
     already-teleporting: "%prefix% &cYou are already being teleported."
     failed: "%prefix% &eWe have not found a safe place for you, please try again!"
     cancelled-by-move: "%prefix% &cTeleportation cancelled due to movement."
+    cooldown: "%prefix% &cYou must wait &f%time%s &cbefore using /rtp again."
 
   admin:
     reload-command:

@@ -2,7 +2,9 @@ package com.mongenscave.mcrandomtp.command;
 
 import com.mongenscave.mcrandomtp.McRandomTP;
 import com.mongenscave.mcrandomtp.config.Config;
+import com.mongenscave.mcrandomtp.config.GuiConfig;
 import com.mongenscave.mcrandomtp.config.Messages;
+import com.mongenscave.mcrandomtp.guis.MainGUI;
 import com.mongenscave.mcrandomtp.manager.TeleportManager;
 import org.bukkit.Bukkit;
 import org.bukkit.World;
@@ -30,6 +32,10 @@ public class RTPCommand implements OrphanCommand {
             return;
         }
 
-        manager.teleportPlayer(player, world);
+        if(GuiConfig.getBoolean("enable-gui")) {
+            MainGUI.open(player);
+        } else {
+            manager.teleportPlayer(player, world);
+        }
     }
 }

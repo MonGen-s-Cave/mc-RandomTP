@@ -3,6 +3,8 @@ package com.mongenscave.mcrandomtp.util;
 import lombok.experimental.UtilityClass;
 import org.bukkit.ChatColor;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -29,5 +31,17 @@ public class ColorUtil {
         matcher.appendTail(buffer);
 
         return ChatColor.translateAlternateColorCodes('&', buffer.toString());
+    }
+
+    public List<String> process(List<String> messages) {
+        if (messages == null) {
+            return null;
+        }
+
+        List<String> coloredMessages = new ArrayList<>();
+        for (String message : messages) {
+            coloredMessages.add(process(message));
+        }
+        return coloredMessages;
     }
 }

@@ -1,0 +1,76 @@
+# If you disable the GUI the /rtp command
+# going to teleport you instantly.
+enable-gui: true
+
+main-gui:
+  title: '         &8ʀᴀɴᴅᴏᴍ ᴛᴇʟᴇᴘᴏʀᴛ'
+  rows: 3
+
+  items:
+    nether-rtp:
+      material: NETHERRACK
+      name: '&#B8565A&lɴ&#C26266&lᴇ&#CD6E72&lᴛ&#D77A7E&lʜ&#C8686C&lᴇ&#B8565A&lʀ'
+      lore:
+        - '&8ᴡᴏʀʟᴅ'
+        - ''
+        - ' &#6696C4ℹ Information'
+        - ' &fBasic vanilla nether world'
+        - ' &ffor resources and more.'
+        - ''
+        - ' &#D77A7E♦ &fRadius: &#D77A7E%radius%'
+        - ' &#D77A7E♦ &fPlayers: &#D77A7E%players%'
+        - ''
+        - '&e⭐ ᴄʟɪᴄᴋ ᴛᴏ ᴛᴇʟᴇᴘᴏʀᴛ'
+      slot: 11
+      actions:
+        - '[rtp] world_nether'
+        - '[sound] minecraft:entity.parrot.imitate.blaze'
+        - '[close]'
+
+    overworld-rtp:
+      material: GRASS_BLOCK
+      name: '&#82C466&lᴏ&#8FD373&lᴠ&#9DE280&lᴇ&#AAF08C&lʀ&#B7FF99&lᴡ&#AAF08C&lᴏ&#9DE280&lʀ&#8FD373&lʟ&#82C466&lᴅ'
+      lore:
+        - '&8ᴡᴏʀʟᴅ'
+        - ''
+        - ' &#6696C4ℹ Information'
+        - ' &fBasic vanilla overworld'
+        - ' &ffor resources and more.'
+        - ''
+        - ' &#B7FF99♦ &fRadius: &#B7FF99%radius%'
+        - ' &#B7FF99♦ &fPlayers: &#B7FF99%players%'
+        - ''
+        - '&e⭐ ᴄʟɪᴄᴋ ᴛᴏ ᴛᴇʟᴇᴘᴏʀᴛ'
+      slot: 13
+      actions:
+        - '[rtp] world'
+        - '[sound] minecraft:entity.slime.squish'
+        - '[close]'
+
+    end-rtp:
+      material: END_STONE
+      name: '&#E55FAB&lᴛ&#EB6AB4&lʜ&#F276BC&lᴇ &#F276BC&lᴇ&#EB6AB4&lɴ&#E55FAB&lᴅ'
+      lore:
+        - '&8ᴡᴏʀʟᴅ'
+        - ''
+        - ' &#6696C4ℹ Information'
+        - ' &fBasic vanilla END world'
+        - ' &ffor resources and more.'
+        - ''
+        - ' &#F881C5♦ &fRadius: &#F881C5%radius%'
+        - ' &#F881C5♦ &fPlayers: &#F881C5%players%'
+        - ''
+        - '&e⭐ ᴄʟɪᴄᴋ ᴛᴏ ᴛᴇʟᴇᴘᴏʀᴛ'
+      slot: 15
+      actions:
+        - '[rtp] world_the_end'
+        - '[sound] minecraft:entity.ender_dragon.flap'
+        - '[close]'
+
+decorative-items:
+  filler:
+    material: GRAY_STAINED_GLASS_PANE
+    name: ' '
+    slot: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 12, 14, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26]
+
+version: '1'

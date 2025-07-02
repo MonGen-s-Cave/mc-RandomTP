@@ -100,5 +100,16 @@
             <version>0.1.6</version>
             <scope>compile</scope>
         </dependency>
+        <dependency>
+            <groupId>dev.triumphteam</groupId>
+            <artifactId>triumph-gui</artifactId>
+            <version>3.1.11</version>
+        </dependency>
+        <dependency>
+            <groupId>io.papermc</groupId>
+            <artifactId>paperlib</artifactId>
+            <version>1.0.7</version>
+            <scope>compile</scope>
+        </dependency>
     </dependencies>
 </project>

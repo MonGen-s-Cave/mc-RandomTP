@@ -13,18 +13,32 @@ import org.bukkit.entity.Player;
 import java.util.Map;
 import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.atomic.AtomicReference;
 
 public class TeleportManager {
 
-    private static final Map<UUID, MyScheduledTask> delayTasks = new ConcurrentHashMap<>();
-    private static final Map<UUID, TeleportTask> activeTeleports = new ConcurrentHashMap<>();
+    private final Map<UUID, MyScheduledTask> delayTasks = new ConcurrentHashMap<>();
+    private final Map<UUID, TeleportTask> activeTeleports = new ConcurrentHashMap<>();
+    private final Map<UUID, Long> cooldowns = new ConcurrentHashMap<>();
 
     public void teleportPlayer(Player player, World world) {
-        if (activeTeleports.containsKey(player.getUniqueId())) {
+        UUID uuid = player.getUniqueId();
+
+        long now = System.currentTimeMillis();
+        long cooldownMillis = Config.getInt("teleport.cooldown-seconds") * 1000L;
+        long lastUsed = cooldowns.getOrDefault(uuid, 0L);
+
+        if (now - lastUsed < cooldownMillis) {
+            long secondsLeft = (cooldownMillis - (now - lastUsed)) / 1000L;
+            player.sendMessage(Messages.get("messages.rtp-command.cooldown").replace("%time%", String.valueOf(secondsLeft)));
+            return;
+        }
+
+        if (activeTeleports.containsKey(uuid) || delayTasks.containsKey(uuid)) {
             player.sendMessage(Messages.get("messages.rtp-command.already-teleporting"));
             return;
         }
+
+        cooldowns.put(uuid, now);
 
         if (Config.getBoolean("teleport.delay.enabled")) {
             startDelayedTeleport(player, world);
@@ -54,12 +68,11 @@ public class TeleportManager {
         });
 
         activeTeleports.put(uuid, task);
-
-        task.start(() -> activeTeleports.put(uuid, task));
+        task.start(() -> {});
     }
 
     private void startDelayedTeleport(Player player, World world) {
-        AtomicReference<MyScheduledTask> taskRef = new AtomicReference<>();
+        UUID uuid = player.getUniqueId();
 
         int delay = Config.getInt("teleport.delay.seconds");
         String type = Config.getString("teleport.delay.notify.type");
@@ -71,9 +84,8 @@ public class TeleportManager {
         float pitch = (float) Config.getDouble("teleport.delay.sound.pitch");
         float volume = (float) Config.getDouble("teleport.delay.sound.volume");
 
-        UUID uuid = player.getUniqueId();
-
         final int[] secondsLeft = {delay};
+
         MyScheduledTask task = McRandomTP.getScheduler().runTaskTimer(() -> {
             if (!player.isOnline()) {
                 cancel(player);
@@ -81,27 +93,22 @@ public class TeleportManager {
             }
 
             if (secondsLeft[0] <= 0) {
-                delayTasks.remove(uuid);
-                taskRef.get().cancel();
+                MyScheduledTask t = delayTasks.remove(uuid);
+                if (t != null) t.cancel();
 
-                TeleportTask teleportTask = new TeleportTask(player, world, () -> {
-                    activeTeleports.remove(uuid);
-                });
-
-                teleportTask.start(() -> activeTeleports.put(uuid, teleportTask));
+                startTeleport(player, world);
                 return;
             }
 
             String rendered = msg.replace("%s", String.valueOf(secondsLeft[0]));
 
             switch (type.toLowerCase()) {
-                case "none" -> {}
                 case "title" -> {
                     String renderedSubtitle = subtitle.replace("%s", String.valueOf(secondsLeft[0]));
                     player.sendTitle(ColorUtil.process(rendered), ColorUtil.process(renderedSubtitle), 0, 25, 5);
                 }
                 case "message" -> player.sendMessage(ColorUtil.process(rendered));
-                default -> player.sendActionBar(ColorUtil.process(rendered));
+                case "actionbar" -> player.sendActionBar(ColorUtil.process(rendered));
             }
 
             if (playSound) {
@@ -111,7 +118,6 @@ public class TeleportManager {
             secondsLeft[0]--;
         }, 0L, 20L);
 
-        taskRef.set(task);
         delayTasks.put(uuid, task);
     }
 

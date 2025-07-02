@@ -5,6 +5,10 @@ teleport:
   # If player use /rtp command without given world
   # this world going to be used.
   default-world: world
+  # If no safe random location is found after all attempts,
+  # the player will be teleported to the configured fallback location.
+  use-fallback-location: true
+  cooldown-seconds: 30
 
   delay:
     enabled: true
@@ -37,9 +41,23 @@ worlds:
     radius: 1000
     min-y: 60
     max-y: 256
+    # Teleport here if no safe random location could be found.
+    fallback:
+      x: 0.5
+      y: 80.0
+      z: 0.5
+      yaw: 0.0
+      pitch: 0.0
+
   world_nether:
     radius: 1000
     min-y: 30
     max-y: 120
+    fallback:
+      x: 100.5
+      y: 64.0
+      z: -100.5
+      yaw: 180.0
+      pitch: 0.0
 
 version: '1'

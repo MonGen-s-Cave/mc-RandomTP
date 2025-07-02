@@ -3,6 +3,7 @@ package com.mongenscave.mcrandomtp;
 import com.github.Anon8281.universalScheduler.UniversalScheduler;
 import com.github.Anon8281.universalScheduler.scheduling.schedulers.TaskScheduler;
 import com.mongenscave.mcrandomtp.config.Config;
+import com.mongenscave.mcrandomtp.config.GuiConfig;
 import com.mongenscave.mcrandomtp.config.Messages;
 import com.mongenscave.mcrandomtp.manager.TeleportManager;
 import com.mongenscave.mcrandomtp.util.LoggerUtil;
@@ -26,6 +27,7 @@ public final class McRandomTP extends JavaPlugin {
     public void onEnable() {
         Config.load(this);
         Messages.load(this);
+        GuiConfig.load(this);
 
         this.teleportManager = new TeleportManager();
 

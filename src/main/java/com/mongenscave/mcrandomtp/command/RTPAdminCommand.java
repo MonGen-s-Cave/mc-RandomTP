@@ -1,6 +1,7 @@
 package com.mongenscave.mcrandomtp.command;
 
 import com.mongenscave.mcrandomtp.config.Config;
+import com.mongenscave.mcrandomtp.config.GuiConfig;
 import com.mongenscave.mcrandomtp.config.Messages;
 import org.bukkit.command.CommandSender;
 import org.jetbrains.annotations.NotNull;
@@ -17,6 +18,7 @@ public class RTPAdminCommand implements OrphanCommand {
     public void reload(@NotNull CommandSender sender) {
         Config.reload();
         Messages.reload();
+        GuiConfig.reload();
 
         sender.sendMessage(Messages.get("messages.admin.reload-command.success"));
     }
