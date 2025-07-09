@@ -16,6 +16,12 @@ public class PlayerMoveListener implements Listener {
         if (!Config.getBoolean("teleport.delay.cancel-on-move")) return;
         if (!teleportManager.isWaiting(event.getPlayer())) return;
 
+        if (event.getFrom().getBlockX() == event.getTo().getBlockX()
+                && event.getFrom().getBlockY() == event.getTo().getBlockY()
+                && event.getFrom().getBlockZ() == event.getTo().getBlockZ()) {
+            return;
+        }
+
         teleportManager.cancel(event.getPlayer());
     }
 }

@@ -38,8 +38,6 @@ public class TeleportManager {
             return;
         }
 
-        cooldowns.put(uuid, now);
-
         if (Config.getBoolean("teleport.delay.enabled")) {
             startDelayedTeleport(player, world);
         } else {
@@ -54,6 +52,9 @@ public class TeleportManager {
     public void cancel(Player player) {
         UUID uuid = player.getUniqueId();
         MyScheduledTask task = delayTasks.remove(uuid);
+        cooldowns.remove(uuid);
+        activeTeleports.remove(uuid);
+
         if (task != null) {
             task.cancel();
             player.sendMessage(Messages.get("messages.rtp-command.cancelled-by-move"));
@@ -69,6 +70,7 @@ public class TeleportManager {
 
         activeTeleports.put(uuid, task);
         task.start(() -> {});
+        cooldowns.put(player.getUniqueId(), System.currentTimeMillis());
     }
 
     private void startDelayedTeleport(Player player, World world) {
@@ -96,6 +98,7 @@ public class TeleportManager {
                 MyScheduledTask t = delayTasks.remove(uuid);
                 if (t != null) t.cancel();
 
+                cooldowns.put(uuid, System.currentTimeMillis());
                 startTeleport(player, world);
                 return;
             }
